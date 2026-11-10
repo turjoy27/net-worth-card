@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: net-worth-card
+    runtime: static
+    staticPublishPath: ./public
+    buildCommand: echo "static site - no build"
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*.html
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate

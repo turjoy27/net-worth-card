@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What’s Your Net Worth – Free Net Worth Card Maker</title>
+<meta name="description" content="Get your net worth rank and a shareable card in 30 seconds. Free. Nothing is saved or uploaded.">
+<meta property="og:title" content="What’s Your Net Worth">
+<meta property="og:description" content="Get your rank and a shareable net worth card. Free and private.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E💎%3C/text%3E%3C/svg%3E">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--surface:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--accent:#4f46e5;--accent-text:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--surface:#141b30;--text:#f1f5f9;--muted:#94a3b8;--line:#25304d;--accent:#818cf8;--accent-text:#0b1020}}
+:root[data-theme="dark"]{--bg:#0b1020;--surface:#141b30;--text:#f1f5f9;--muted:#94a3b8;--line:#25304d;--accent:#818cf8;--accent-text:#0b1020}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45}
+main{max-width:520px;margin:0 auto;padding:20px 16px 48px}
+h1{font-size:26px;margin:8px 0 4px;letter-spacing:-.02em}
+p.sub{margin:0 0 20px;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px}
+input,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:16px;font-family:inherit}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photo{display:flex;align-items:center;gap:14px}
+.avatar{width:64px;height:64px;border-radius:50%;background:var(--bg);border:1px dashed var(--muted);object-fit:cover;flex:none}
+button,a.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:14px;border:0;background:var(--accent);color:var(--accent-text);font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;font-family:inherit}
+button.ghost,a.ghost{background:var(--bg);color:var(--text);border:1px solid var(--line)}
+.go{margin-top:20px}
+#result{display:none;margin-top:24px}
+#result img{width:100%;border-radius:18px;display:block;box-shadow:0 12px 40px rgba(15,23,42,.18)}
+.hint{font-size:13px;color:var(--muted);text-align:center;margin:10px 0 16px}
+.socials{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;font-size:14px}.top nav{display:flex;gap:14px}.top a{color:var(--muted);text-decoration:none}.lang{width:auto;padding:8px 14px;font-size:14px;background:var(--surface);color:var(--text);border:1px solid var(--line)}.priv{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--muted);margin-bottom:18px}.ex{text-align:center;margin:0 0 22px}.ex img{width:68%;max-width:300px;border-radius:16px;box-shadow:0 8px 28px rgba(15,23,42,.16)}.ex h2{font-size:15px;margin:0 0 4px}.ex p{margin:0 0 10px;font-size:13px;color:var(--muted)}.info{margin-top:34px}.info h2{font-size:18px;margin:22px 0 6px}.info p{margin:0;color:var(--muted);font-size:14px}.info a{color:var(--accent)}footer{margin-top:30px;text-align:center;font-size:12px;color:var(--muted)}.err{color:#e11d48;font-size:13px;margin-top:10px;display:none}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><strong>💎 What’s Your Net Worth</strong><nav><a href="#about" data-i="n_about">About</a><a href="#privacy" data-i="n_priv">Privacy</a></nav><button class="lang" id="lang" type="button">বাংলা</button></div>
+<h1 data-i="h1">What’s your net worth?</h1>
+<p class="sub" data-i="sub">Get your rank and a shareable card in 30 seconds.</p>
+<div class="priv" data-i="priv">🔒 Nothing is uploaded or saved. Your photo and numbers stay on your device.</div>
+<div class="ex"><h2 data-i="ex_h">Example card</h2><p data-i="ex_p">This is what you will get.</p><img id="ex" alt="Example net worth card"></div>
+<div class="panel">
+<div class="photo">
+<img id="av" class="avatar" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='%23cbd5e1'/%3E%3C/svg%3E">
+<div style="flex:1"><label style="margin:0 0 6px" for="pic" data-i="photo">Your photo</label><input id="pic" type="file" accept="image/*"></div>
+</div>
+<label for="name" data-i="name">Name</label>
+<input id="name" maxlength="28" data-p="ph_name" placeholder="Your name" autocomplete="off">
+<label for="tag" data-i="tag">Title or tagline (optional)</label>
+<input id="tag" maxlength="36" data-p="ph_tag" placeholder="e.g. Future shop owner" autocomplete="off">
+<label for="cur" data-i="cur">Currency</label>
+<select id="cur">
+<option value="BDT" selected>৳ BDT</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option><option value="INR">₹ INR</option><option value="CAD">C$ CAD</option><option value="AUD">A$ AUD</option><option value="AED">AED</option><option value="SAR">SAR</option><option value="PKR">Rs PKR</option><option value="NGN">₦ NGN</option><option value="JPY">¥ JPY</option><option value="BRL">R$ BRL</option><option value="PHP">₱ PHP</option>
+</select>
+<label data-i="assets">Your assets</label>
+<div class="row">
+<input id="cash" type="number" inputmode="decimal" min="0" data-p="ph_cash" placeholder="Cash and savings">
+<input id="inv" type="number" inputmode="decimal" min="0" data-p="ph_inv" placeholder="Investments">
+</div>
+<div class="row" style="margin-top:12px">
+<input id="prop" type="number" inputmode="decimal" min="0" data-p="ph_prop" placeholder="Property">
+<input id="biz" type="number" inputmode="decimal" min="0" data-p="ph_biz" placeholder="Business">
+</div>
+<div class="row">
+<div><label for="debt" data-i="debt">Total debt</label><input id="debt" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+<div><label for="inc" data-i="inc">Monthly income</label><input id="inc" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+</div>
+<label for="age" data-i="age">Age (optional)</label>
+<input id="age" type="number" inputmode="numeric" min="1" max="120" placeholder="—">
+<div class="err" id="err" data-i="err">Enter your name and at least your assets or debt.</div>
+<button class="go" id="make" data-i="make">Create my card</button>
+</div>
+<section id="result">
+<img id="out" alt="Your net worth card">
+<p class="hint" id="download-status" data-i="hint" aria-live="polite">Download a PNG to your device, or share the card directly.</p>
+<button id="download" class="ghost" type="button" data-i="download">Download PNG</button>
+<button id="share" data-i="share">Share card</button>
+<div class="socials">
+<a class="btn ghost" id="wa" target="_blank" rel="noopener">WhatsApp</a>
+<a class="btn ghost" id="fb" target="_blank" rel="noopener">Facebook</a>
+<a class="btn ghost" id="tw" target="_blank" rel="noopener">X</a>
+<a class="btn ghost" id="tg" target="_blank" rel="noopener">Telegram</a>
+</div>
+<p class="note" data-i="note">Social links share text and this page. Use Share card on your phone to attach the image itself.</p>
+</section>
+<div class="info">
+<h2 id="about" data-i="about_h">About</h2><p data-i="about_p"></p>
+<h2 id="privacy" data-i="priv_h">Privacy</h2><p data-i="priv_p"></p>
+</div>
+<footer data-i="foot"></footer>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var photo=null;
+$('pic').addEventListener('change',function(e){
+var f=e.target.files&&e.target.files[0];
+if(!f)return;
+var r=new FileReader();
+r.onload=function(){var im=new Image();im.onload=function(){photo=im;$('av').src=r.result};im.src=r.result};
+r.readAsDataURL(f);
+});
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+var RATES={USD:1,BDT:122,EUR:.92,GBP:.79,INR:84,CAD:1.38,AUD:1.55,AED:3.67,SAR:3.75,PKR:280,NGN:1500,JPY:150,BRL:5.5,PHP:57};
+var SYM={USD:'$',BDT:'৳',EUR:'€',GBP:'£',INR:'₹',CAD:'C$',AUD:'A$',AED:'AED ',SAR:'SAR ',PKR:'Rs ',NGN:'₦',JPY:'¥',BRL:'R$',PHP:'₱'};
+var RANKS=[[-50000,'Debt Boss','🐉'],[0,'Broke Legend','🫡'],[1000,'Paycheck Warrior','⚔️'],[1e4,'Rising Saver','🌱'],[1e5,'Stack Builder','🧱'],[1e6,'Six-Figure Club','💼'],[1e7,'Millionaire','💎'],[1e8,'Multi-Millionaire','🚀'],[1e9,'Centimillionaire','👑'],[Infinity,'Billionaire','🪐']];
+function rankOf(nw,code){var u=nw/RATES[code];for(var i=0;i<RANKS.length;i++){if(u<RANKS[i][0])return RANKS[i]}return RANKS[RANKS.length-1]}
+function sym(){return SYM[CUR]}
+function money(n){return (n<0?'-':'')+sym()+Math.abs(Math.round(n)).toLocaleString('en-US')}
+function num(i){return parseFloat($(i).value)||0}
+function fit(c,t,max,size,weight){var s=size;do{c.font=weight+' '+s+'px -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';s-=4}while(c.measureText(t).width>max&&s>22)}
+function health(a,d){
+if(d<=0)return{t:'Debt-free',c:'#059669'};
+if(a<=0)return{t:'Underwater',c:'#e11d48'};
+var q=d/a;
+if(q<0.3)return{t:'Healthy',c:'#059669'};
+if(q<0.7)return{t:'Leveraged',c:'#d97706'};
+return{t:'Underwater',c:'#e11d48'};
+}
+function readData(){return{name:$('name').value.trim(),tag:$('tag').value.trim(),age:$('age').value,cash:num('cash'),inv:num('inv'),prop:num('prop'),biz:num('biz'),debt:num('debt'),inc:num('inc'),cur:$('cur').value,photo:photo}}
+var CUR='BDT';
+function draw(D){D=D||readData();CUR=D.cur;
+var F='-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';
+var cv=document.createElement('canvas');cv.width=1080;cv.height=1500;
+var c=cv.getContext('2d');
+var g=c.createLinearGradient(0,0,1080,1500);g.addColorStop(0,'#eef2ff');g.addColorStop(1,'#f8fafc');
+c.fillStyle=g;c.fillRect(0,0,1080,1500);
+c.save();c.shadowColor='rgba(15,23,42,.14)';c.shadowBlur=60;c.shadowOffsetY=20;
+rr(c,70,70,940,1360,56);c.fillStyle='#fff';c.fill();c.restore();
+var name=D.name,tag=D.tag,age=D.age,photo=D.photo;
+var parts=[['Cash',D.cash,'#4f46e5'],['Invest',D.inv,'#0ea5e9'],['Property',D.prop,'#f59e0b'],['Business',D.biz,'#10b981']];
+var a=0;parts.forEach(function(p){a+=p[1]});
+var d=D.debt,inc=D.inc,nw=a-d,rk=rankOf(nw,D.cur);
+c.textAlign='center';c.fillStyle='#4f46e5';c.font='700 26px '+F;c.fillText('WHAT’S YOUR NET WORTH',540,145);
+var cx=540,cy=305,R=120;
+c.save();c.beginPath();c.arc(cx,cy,R,0,Math.PI*2);c.closePath();c.clip();
+if(photo){var s=Math.max(2*R/photo.width,2*R/photo.height),w=photo.width*s,h=photo.height*s;c.drawImage(photo,cx-w/2,cy-h/2,w,h)}
+else{c.fillStyle='#e0e7ff';c.fillRect(cx-R,cy-R,2*R,2*R);c.fillStyle='#4f46e5';c.font='700 120px '+F;c.fillText((name[0]||'?').toUpperCase(),cx,cy+42)}
+c.restore();
+c.beginPath();c.arc(cx,cy,R+6,0,Math.PI*2);c.strokeStyle='#e2e8f0';c.lineWidth=6;c.stroke();
+c.fillStyle='#0f172a';fit(c,name,780,60,'700');c.fillText(name,540,510);
+var sub=[tag,age?age+' yrs':''].filter(Boolean).join('  ·  ');
+c.fillStyle='#64748b';c.font='400 30px '+F;c.fillText(sub,540,556);
+var rt=rk[2]+'  '+rk[1].toUpperCase();
+c.font='800 42px '+F;var rw=Math.min(c.measureText(rt).width+80,820);
+rr(c,540-rw/2,595,rw,84,42);c.fillStyle='#4f46e5';c.fill();
+c.fillStyle='#fff';fit(c,rt,rw-80,42,'800');c.fillText(rt,540,652);
+c.fillStyle='#64748b';c.font='600 26px '+F;c.fillText('TOTAL NET WORTH',540,750);
+var t=money(nw);c.fillStyle=nw<0?'#e11d48':'#0f172a';fit(c,t,820,115,'800');c.fillText(t,540,855);
+var h=health(a,d);c.font='700 26px '+F;
+var pw=c.measureText(h.t).width+56;rr(c,540-pw/2,885,pw,54,27);c.fillStyle=h.c+'22';c.fill();
+c.fillStyle=h.c;c.fillText(h.t,540,923);
+c.textAlign='left';
+c.fillStyle='#e2e8f0';c.fillRect(130,980,820,3);
+var st=[['ASSETS',money(a),'#0f172a'],['DEBT',money(d),'#e11d48'],['MONTHLY INCOME',money(inc),'#0f172a']];
+for(var i=0;i<3;i++){var x=130+i*280;
+c.fillStyle='#64748b';c.font='600 22px '+F;c.fillText(st[i][0],x,1040);
+c.fillStyle=st[i][2];fit(c,st[i][1],255,40,'700');c.fillText(st[i][1],x,1090)}
+c.fillStyle='#64748b';c.font='600 22px '+F;c.fillText('ASSET SPLIT',130,1155);
+rr(c,130,1180,820,30,15);c.fillStyle='#e2e8f0';c.fill();
+if(a>0){c.save();rr(c,130,1180,820,30,15);c.clip();var px=130;
+parts.forEach(function(p){var w=p[1]/a*820;c.fillStyle=p[2];c.fillRect(px,1180,w,30);px+=w});c.restore()}
+parts.forEach(function(p,i){var x=130+(i%2)*420,y=1262+Math.floor(i/2)*50;
+c.fillStyle=p[2];c.beginPath();c.arc(x+10,y-9,10,0,Math.PI*2);c.fill();
+c.fillStyle='#0f172a';c.font='500 28px '+F;c.fillText(p[0]+'  '+(a>0?Math.round(p[1]/a*100):0)+'%',x+32,y)});
+c.fillStyle='#94a3b8';c.font='500 24px '+F;c.fillText('Make yours free · What’s Your Net Worth',130,1385);
+return cv;
+}
+var lastCanvas=null;
+$('make').addEventListener('click',function(){
+var ok=$('name').value.trim()&&(num('cash')+num('inv')+num('prop')+num('biz')+num('debt')>0);
+$('err').style.display=ok?'none':'block';
+if(!ok)return;
+lastCanvas=draw(readData());
+$('out').src=lastCanvas.toDataURL('image/png');
+var nw=num('cash')+num('inv')+num('prop')+num('biz')-num('debt');var rk=rankOf(nw,$('cur').value);
+var txt='I’m a “'+rk[1]+'” '+rk[2]+' — what’s your rank? Make your card:';
+var u=encodeURIComponent(location.href),e=encodeURIComponent(txt);
+$('wa').href='https://wa.me/?text='+encodeURIComponent(txt+' '+location.href);
+$('fb').href='https://www.facebook.com/sharer/sharer.php?u='+u;
+$('tw').href='https://twitter.com/intent/tweet?text='+e+'&url='+u;
+$('tg').href='https://t.me/share/url?url='+u+'&text='+e;
+$('result').style.display='block';
+$('result').scrollIntoView({behavior:'smooth'});
+});
+$('share').addEventListener('click',function(){
+if(!lastCanvas)return;
+var txt='My net worth card — make yours!';
+lastCanvas.toBlob(function(b){
+var f=new File([b],'net-worth-card.png',{type:'image/png'});
+try{
+if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:txt,url:location.href}).catch(function(){});return}
+if(navigator.share){navigator.share({text:txt,url:location.href}).catch(function(){});return}
+}catch(x){}
+$('result').querySelector('.hint').textContent='Sharing isn’t supported here. Press and hold the card to save it, then post it.';
+},'image/png');
+});
+
+$('download').addEventListener('click',function(){
+if(!lastCanvas)return;
+var button=$('download');
+button.disabled=true;
+lastCanvas.toBlob(function(blob){
+button.disabled=false;
+if(!blob){$('result').querySelector('.hint').textContent=T[LANG].download_err;return}
+var url=URL.createObjectURL(blob),a=document.createElement('a');
+a.href=url;a.download='net-worth-card.png';a.style.display='none';document.body.appendChild(a);a.click();a.remove();
+window.setTimeout(function(){URL.revokeObjectURL(url)},60000);
+$('result').querySelector('.hint').textContent=T[LANG].download_done;
+},'image/png');
+});
+
+var T={en:{n_about:'About',n_priv:'Privacy',h1:'What’s your net worth?',sub:'Get your rank and a shareable card in 30 seconds.',priv:'🔒 Nothing is uploaded or saved. Your photo and numbers stay on your device.',ex_h:'Example card',ex_p:'This is what you will get.',photo:'Your photo',name:'Name',ph_name:'Your name',tag:'Title or tagline (optional)',ph_tag:'e.g. Future shop owner',cur:'Currency',assets:'Your assets',ph_cash:'Cash and savings',ph_inv:'Investments',ph_prop:'Property',ph_biz:'Business',debt:'Total debt',inc:'Monthly income',age:'Age (optional)',err:'Enter your name and at least your assets or debt.',make:'Create my card',hint:'Download a PNG to your device, or share the card directly.',download:'Download PNG',download_done:'Your PNG download has started. On some phones, check your Downloads or Files app.',download_err:'Could not create the PNG. Please try again.',share:'Share card',note:'Social links share text and this page. Use Share card on your phone to attach the image itself.',about_h:'About',about_p:'What’s Your Net Worth is a free, fun tool that turns your assets and debts into a rank and a shareable card. It is for fun and awareness, not financial advice. Ranks are rough and use fixed approximate exchange rates.',priv_h:'Privacy',priv_p:'We do not collect, upload, store or sell your data. Your name, photo and numbers are processed only in your browser to draw the card and are gone when you close or refresh the page. If you share the card, you choose where it goes. There are no accounts and no tracking on this page.',foot:'© What’s Your Net Worth. For fun, not financial advice.',btn:'বাংলা'},
+bn:{n_about:'আমাদের সম্পর্কে',n_priv:'গোপনীয়তা',h1:'আপনার নেট ওয়ার্থ কত?',sub:'৩০ সেকেন্ডে আপনার র‍্যাঙ্ক আর শেয়ার করার মতো কার্ড বানান।',priv:'🔒 কিছুই আপলোড বা সেভ হয় না। আপনার ছবি ও সংখ্যা আপনার ডিভাইসেই থাকে।',ex_h:'উদাহরণ কার্ড',ex_p:'আপনি এমন একটি কার্ড পাবেন।',photo:'আপনার ছবি',name:'নাম',ph_name:'আপনার নাম',tag:'টাইটেল (ঐচ্ছিক)',ph_tag:'যেমন: ভবিষ্যৎ ব্যবসায়ী',cur:'মুদ্রা',assets:'আপনার সম্পদ',ph_cash:'নগদ ও সঞ্চয়',ph_inv:'বিনিয়োগ',ph_prop:'জমি-বাড়ি',ph_biz:'ব্যবসা',debt:'মোট ঋণ',inc:'মাসিক আয়',age:'বয়স (ঐচ্ছিক)',err:'আপনার নাম এবং অন্তত সম্পদ বা ঋণ দিন।',make:'আমার কার্ড বানান',hint:'PNG ডাউনলোড করুন অথবা কার্ডটি সরাসরি শেয়ার করুন।',download:'PNG ডাউনলোড',download_done:'PNG ডাউনলোড শুরু হয়েছে। কিছু ফোনে Downloads বা Files অ্যাপে পাবেন।',download_err:'PNG তৈরি করা যায়নি। আবার চেষ্টা করুন।',share:'কার্ড শেয়ার করুন',note:'সোশ্যাল লিংকে শুধু লেখা ও পেজের লিংক যায়। ছবি পাঠাতে ফোনে “কার্ড শেয়ার করুন” ব্যবহার করুন।',about_h:'আমাদের সম্পর্কে',about_p:'What’s Your Net Worth একটি ফ্রি ও মজার টুল, যা আপনার সম্পদ ও ঋণকে একটি র‍্যাঙ্ক এবং শেয়ারযোগ্য কার্ডে রূপ দেয়। এটি মজা ও সচেতনতার জন্য, আর্থিক পরামর্শ নয়। র‍্যাঙ্ক আনুমানিক এবং নির্দিষ্ট আনুমানিক বিনিময় হার ব্যবহার করে।',priv_h:'গোপনীয়তা',priv_p:'আমরা আপনার তথ্য সংগ্রহ, আপলোড, সেভ বা বিক্রি করি না। নাম, ছবি ও সংখ্যা শুধু আপনার ব্রাউজারে কার্ড আঁকতে ব্যবহার হয় এবং পেজ বন্ধ বা রিফ্রেশ করলে মুছে যায়। কার্ড শেয়ার করলে কোথায় যাবে তা আপনি ঠিক করেন। এই পেজে কোনো অ্যাকাউন্ট বা ট্র্যাকিং নেই।',foot:'© What’s Your Net Worth। মজার জন্য, আর্থিক পরামর্শ নয়।',btn:'English'}};
+var LANG='en';
+function setLang(l){LANG=l;document.documentElement.lang=l;
+document.querySelectorAll('[data-i]').forEach(function(e){e.textContent=T[l][e.getAttribute('data-i')]});
+document.querySelectorAll('[data-p]').forEach(function(e){e.placeholder=T[l][e.getAttribute('data-p')]});
+$('lang').textContent=T[l].btn;
+try{localStorage.setItem('lang',l)}catch(x){}}
+$('lang').addEventListener('click',function(){setLang(LANG==='en'?'bn':'en')});
+var sl=null;try{sl=localStorage.getItem('lang')}catch(x){}
+setLang(sl||((navigator.language||'').indexOf('bn')===0?'bn':'en'));
+$('ex').src=draw({name:'Rahim',tag:'Future shop owner',age:'26',cash:150000,inv:100000,prop:1500000,biz:750000,debt:600000,inc:60000,cur:'BDT',photo:null}).toDataURL('image/png');
+CUR='BDT';
+</script>
+</body>
+</html>
